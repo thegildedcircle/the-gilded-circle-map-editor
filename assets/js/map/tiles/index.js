@@ -1,7 +1,7 @@
 const BASE_TILES  = require('./BASE_TILES')
 const BIOME_TILES = require('./BIOME_TILES')
 
-module.exports = class MapTile {
+export default class MapTile {
   constructor (e, c, f) {
     if (typeof e === 'number') this._setBaseByElevation(e)
     if (typeof c === 'number') this._setBiomeByClimate(c)
