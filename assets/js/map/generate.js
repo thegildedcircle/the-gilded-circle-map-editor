@@ -1,10 +1,10 @@
-const MapTile = require('./tiles')
-const BASE_TILES = require('./tiles/BASE_TILES')
+import Maptile from './tiles';
+import BASE_TILES from './tiles/BASE_TILES';
 
-const config = require('./generate.config')
-const noise = require('./noise')
+import config from './generate.config';
+import noise from '../utils/noise';
 
-module.exports.base = function (W, H = W) {
+export const base = function (W, H = W) {
   const MAP = [...Array(W).keys()].map(i => Array(H).fill(new MapTile(99)))
 
   const origin = {
@@ -52,7 +52,7 @@ module.exports.base = function (W, H = W) {
   return MAP
 }
 
-module.exports.biome = function (MAP) {
+export const biome = function (MAP) {
   const origin = {
     x: 0.5,
     y: 0.5

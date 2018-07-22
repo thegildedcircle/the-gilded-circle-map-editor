@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   base: {
     a: 0.05,
     b: 1.5,

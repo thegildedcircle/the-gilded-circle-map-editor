@@ -4,7 +4,7 @@ const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('./server/game/map/tiles/BASE_TILES.json')
 const db = low(adapter)
 
-module.exports = {
+export default {
   _TILES: db.get('BASE_TILES'),
 
   getByElevation (e) {
