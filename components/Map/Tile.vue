@@ -1,23 +1,19 @@
 <template>
-  <div class="container">
-    <map-container/>
-  </div>
+  <span class="map-tile" :style="`color: ${ colour };`"><slot/></span>
 </template>
 
 <script>
-import MapContainer from '~/components/Map/Container'
-
-console.log(MapContainer)
-
 export default {
   // Do not forget this little guy
-  name: '',
+  name: 'Map-Tile',
   // share common functionality with component mixins
   mixins: [],
   // compose new components
   extends: {},
   // component properties/variables
-  props: {},
+  props: {
+    colour: String
+  },
   // variables
   data () {
     return {
@@ -26,9 +22,7 @@ export default {
   },
   computed: {},
   // when component uses other components
-  components: {
-    MapContainer
-  },
+  components: {},
   // methods
   watch: {},
   methods: {},
@@ -38,6 +32,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   
 </style>

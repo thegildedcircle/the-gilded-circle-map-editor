@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <map-container/>
+    <div v-for="(row, y) in map" :key="y">
+      <map-tile v-for="(tile, x) in row" :key="x" :colour="tile.colour">{{ tile.char }}</map-tile>
+    </div>
   </div>
 </template>
 
 <script>
-import MapContainer from '~/components/Map/Container'
-
-console.log(MapContainer)
+import MapTile from './Tile.vue'
 
 export default {
   // Do not forget this little guy
-  name: '',
+  name: 'Map-Container',
   // share common functionality with component mixins
   mixins: [],
   // compose new components
@@ -24,10 +24,12 @@ export default {
 
     }
   },
-  computed: {},
+  computed: {
+    map () { return this.$store.state.map }
+  },
   // when component uses other components
   components: {
-    MapContainer
+    MapTile
   },
   // methods
   watch: {},
@@ -38,6 +40,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   
 </style>
