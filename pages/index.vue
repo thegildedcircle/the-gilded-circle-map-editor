@@ -7,8 +7,6 @@
 <script>
 import MapContainer from '~/components/Map/Container'
 
-console.log(MapContainer)
-
 export default {
   // Do not forget this little guy
   name: '',
@@ -34,7 +32,9 @@ export default {
   methods: {},
   // component Lifecycle hooks
   beforeCreate () {},
-  mounted () {}
+  mounted () {
+    this.$store.dispatch('map/generate', { width: 20, height: 20 })
+  }
 }
 </script>
 

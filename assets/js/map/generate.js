@@ -1,4 +1,4 @@
-import Maptile from './tiles';
+import MapTile from './tiles';
 import BASE_TILES from './tiles/BASE_TILES';
 
 import config from './generate.config';
@@ -45,7 +45,7 @@ export const base = function (W, H = W) {
           ? BASE_TILES.getTotal() - 1
           : e
 
-      MAP[x][y] = new MapTile(e)
+      MAP[x][y] = new MapTile(0)
     }
   }
 

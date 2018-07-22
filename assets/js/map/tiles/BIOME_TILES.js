@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import BIOME_TILES from '~/assets/json/map/IOME_TILES.json'
+import {BIOME_TILES} from '../../../json/map/BIOME_TILES.json'
 
 export default {
   _TILES: BIOME_TILES,
@@ -9,6 +9,7 @@ export default {
       : c < 0
         ? 0
         : c
+        
     return _.find(this._TILES, (o) => o.elevation === e && o.climate.includes(c))
   }
 }

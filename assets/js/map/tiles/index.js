@@ -1,5 +1,5 @@
-const BASE_TILES  = require('./BASE_TILES')
-const BIOME_TILES = require('./BIOME_TILES')
+import BASE_TILES from './BASE_TILES'
+import BIOME_TILES from './BIOME_TILES'
 
 export default class MapTile {
   constructor (e, c, f) {

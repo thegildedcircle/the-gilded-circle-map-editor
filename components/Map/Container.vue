@@ -1,12 +1,13 @@
 <template>
-  <div class="container">
-    <div v-for="(row, y) in map" :key="y">
+  <div class="map-container">
+    <div v-for="(row, y) in map" :key="y" class="map-container-row">
       <map-tile v-for="(tile, x) in row" :key="x" :colour="tile.colour">{{ tile.char }}</map-tile>
     </div>
   </div>
 </template>
 
 <script>
+import { MAP } from '~/assets/json/map.example.json'
 import MapTile from './Tile.vue'
 
 export default {
@@ -21,7 +22,7 @@ export default {
   // variables
   data () {
     return {
-
+      // map: MAP
     }
   },
   computed: {
