@@ -1,12 +1,8 @@
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-
-const adapter = new FileSync('./server/game/map/tiles/BASE_TILES.json')
-const db = low(adapter)
+import _ from 'lodash'
+import BASE_TILES from '~/assets/json/map/BASE_TILES.json'
 
 export default {
-  _TILES: db.get('BASE_TILES'),
-
+  _TILES: BASE_TILES,
   getByElevation (e) {
     e = e >= this._TILES.value().length
       ? this._TILES.value().length - 1
@@ -14,16 +10,12 @@ export default {
         ? 0
         : e
 
-    return this._TILES
-      .find({ elevation: e })
-      .value()
+    return _.find(this._TILES, { elevation: e })
   },
-
   getBorder () {
-    return db.get('BORDER').value()
+    return _.get(this._TILES, 'BORDER')
   },
-
   getTotal () {
-    return this._TILES.value().length
+    return this._TILES.length
   }
 }

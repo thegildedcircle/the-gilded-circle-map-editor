@@ -1,21 +1,14 @@
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+import _ from 'lodash'
+import BIOME_TILES from '~/assets/json/map/IOME_TILES.json'
 
-const adapter = new FileSync('./server/game/map/tiles/BIOME_TILES.json')
-const db = low(adapter)
-
-module.exports = {
-  _TILES: db.get('BIOME_TILES'),
-
+export default {
+  _TILES: BIOME_TILES,
   getByClimateAndElevation (c, e) {
     c = c >= 3
       ? 2
       : c < 0
         ? 0
         : c
-
-    return this._TILES
-      .find((o) => o.elevation === e && o.climate.includes(c))
-      .value()
+    return _.find(this._TILES, (o) => o.elevation === e && o.climate.includes(c))
   }
 }
