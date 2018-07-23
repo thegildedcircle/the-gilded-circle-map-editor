@@ -11,7 +11,7 @@ module.exports = {
     ]
   },
   css: [ '~/assets/css/main.css' ],
-  modules: [ 'nuxt-buefy' ],
+  modules: [ '@nuxtjs/vuetify' ],
   loading: { color: '#3B8070' },
   build: {
     extend (config, { isDev, isClient }) {
