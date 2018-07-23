@@ -36,16 +36,16 @@ export const base = function (W, H = W) {
 
       e = e < 0
         ? 0
-        : Math.pow(e, config.base.redistribution)
-      e /= 2 + (1 - config.base.persistence)
-      e = Math.floor(e * BASE_TILES.getTotal())
+        : Math.pow(e, config.base.redistribution);
+      e /= 2 + (1 - config.base.persistence);
+      e = Math.floor(e * BASE_TILES.getTotal());
       e = e < 0
         ? 0
         : e >= BASE_TILES.getTotal()
           ? BASE_TILES.getTotal() - 1
           : e
 
-      MAP[x][y] = new MapTile(0)
+      MAP[x][y] = new MapTile(e)
     }
   }
 

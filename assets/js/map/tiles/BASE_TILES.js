@@ -16,6 +16,6 @@ export default {
     return _.get(this._TILES, 'BORDER')
   },
   getTotal () {
-    return this._TILES.length
+    return this._TILES.BASE_TILES.length
   }
 }
