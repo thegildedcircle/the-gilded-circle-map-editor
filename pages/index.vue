@@ -81,7 +81,7 @@ export default {
         { type: 'heading', text: 'Size' },
         { type: 'slider', label: 'width', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'width', thumb_label: true },
         { type: 'slider', label: 'height', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'height', thumb_label: true },
-        { type: 'divider' }
+        { type: 'divider' },
         { type: 'heading', text: 'Base Params' },
         { type: 'slider', label: 'a', min: 0.01, max: 2, step: 0.01, model_type: 'base', model_param: 'a', thumb_label: true },
         { type: 'slider', label: 'b', min: 0.1, max: 5, step: 0.1, model_type: 'base', model_param: 'b', thumb_label: true },
