@@ -78,6 +78,10 @@ export default {
       menu: [
         { type: 'btn', text: 'generate', block: true, flat: true, dark: true, colour: 'primary', method: 'submit' },
         { type: 'divider' },
+        { type: 'heading', text: 'Size' },
+        { type: 'slider', label: 'width', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'width', thumb_label: true },
+        { type: 'slider', label: 'height', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'height', thumb_label: true },
+        { type: 'divider' }
         { type: 'heading', text: 'Base Params' },
         { type: 'slider', label: 'a', min: 0.01, max: 2, step: 0.01, model_type: 'base', model_param: 'a', thumb_label: true },
         { type: 'slider', label: 'b', min: 0.1, max: 5, step: 0.1, model_type: 'base', model_param: 'b', thumb_label: true },
@@ -91,6 +95,10 @@ export default {
         { type: 'slider', label: 'scale', min: 0, max: 2, step: 0.1, model_type: 'base', model_param: 'scale', thumb_label: true },
       ],
       params: {
+        size: {
+          width: 50,
+          height: 20
+        },
         base: {
           a: 0.05,
           b: 1.5,
@@ -123,7 +131,7 @@ export default {
   watch: {},
   methods: {
     handler (method) { this[method]() },
-    submit () { this.$store.dispatch('map/generate', { width: 50, height: 20, params: this.params }) }
+    submit () { this.$store.dispatch('map/generate', { params: this.params }) }
    },
   // component Lifecycle hooks
   beforeCreate () {},
