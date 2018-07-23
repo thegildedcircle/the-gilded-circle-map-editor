@@ -1,21 +1,17 @@
 import _ from 'lodash'
-import BASE_TILES from '../../../json/map/BASE_TILES.json'
+import { BASE_TILES as tiles } from '../../../json/map/tiles.json'
 
 export default {
-  _TILES: BASE_TILES,
   getByElevation (e) {
-    e = e >= this._TILES.BASE_TILES.length
-      ? this._TILES.BASE_TILES.length - 1
+    e = e >= tiles.length
+      ? tiles.length - 1
       : e < 0
         ? 0
         : e
       
-    return _.find(this._TILES.BASE_TILES, { elevation: e })
-  },
-  getBorder () {
-    return _.get(this._TILES, 'BORDER')
+    return _.find(tiles, { elevation: e })
   },
   getTotal () {
-    return this._TILES.BASE_TILES.length
+    return tiles.length
   }
 }
