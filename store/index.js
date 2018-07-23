@@ -10,12 +10,10 @@ export const mutations = {
 }
 
 export const actions = {
-  'map/generate' ({ commit }, { width, height }) {
-    const _map = map.generate(width, height)
+  'map/generate' ({ commit }, { width, height, params }) {
+    console.log(params)
 
-    console.log(_map)
-
-    commit('SET_MAP', _map)
+    commit('SET_MAP', map.generate(width, height, params))
   }
 }
 
