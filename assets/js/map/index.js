@@ -2,10 +2,10 @@
 import { base, biome } from './generate'
 
 export default {
-  generate (W, H = W) {
-    const baseMap = base(W, H)
-    const biomeMap = biome(baseMap)
+  generate (params) {
+    const baseMap = base(params.size, params.base);
+    const biomeMap = biome(baseMap, params.biome);
 
-    return biomeMap
+    return biomeMap;
   }
 }
