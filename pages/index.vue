@@ -37,7 +37,7 @@
                   :min="item.min" 
                   :max="item.max" 
                   :step="item.step"
-                  :thumb-label="item.thumb_label"/>
+                  />
 
                 <!-- Checkbox -->
                 <v-checkbox 
@@ -45,6 +45,10 @@
                   v-model="params[item.model_type][item.model_param]"/>
               </v-list-tile-sub-title>
             </v-list-tile-content>
+
+            <v-list-tile-avatar v-if="item.type === 'slider'">
+              {{ params[item.model_type][item.model_param] }}
+            </v-list-tile-avatar>
           </v-list-tile>
 
         </template>
@@ -79,20 +83,20 @@ export default {
         { type: 'btn', text: 'generate', block: true, flat: true, dark: true, colour: 'primary', method: 'submit' },
         { type: 'divider' },
         { type: 'heading', text: 'Size' },
-        { type: 'slider', label: 'width', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'width', thumb_label: true },
-        { type: 'slider', label: 'height', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'height', thumb_label: true },
+        { type: 'slider', label: 'width', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'width' },
+        { type: 'slider', label: 'height', min: 10, max: 100, step: 1, model_type: 'size', model_param: 'height' },
         { type: 'divider' },
         { type: 'heading', text: 'Base Params' },
-        { type: 'slider', label: 'a', min: 0.01, max: 2, step: 0.01, model_type: 'base', model_param: 'a', thumb_label: true },
-        { type: 'slider', label: 'b', min: 0.1, max: 5, step: 0.1, model_type: 'base', model_param: 'b', thumb_label: true },
-        { type: 'slider', label: 'c', min: 1, max: 50, step: 1, model_type: 'base', model_param: 'c', thumb_label: true },
-        { type: 'slider', label: 'lacunarity', min: 0, max: 20, step: 1, model_type: 'base', model_param: 'lacunarity', thumb_label: true },
+        { type: 'slider', label: 'a', min: 0.01, max: 2, step: 0.01, model_type: 'base', model_param: 'a' },
+        { type: 'slider', label: 'b', min: 0.1, max: 5, step: 0.1, model_type: 'base', model_param: 'b' },
+        { type: 'slider', label: 'c', min: 1, max: 50, step: 1, model_type: 'base', model_param: 'c' },
+        { type: 'slider', label: 'lacunarity', min: 0, max: 20, step: 1, model_type: 'base', model_param: 'lacunarity' },
         { type: 'checkbox', label: 'manhattan', model_type: 'base', model_param: 'manhattan',  },
         { type: 'checkbox', label: 'multiply', model_type: 'base', model_param: 'multiply' },
-        { type: 'slider', label: 'octaves', min: 0, max: 10, step: 1, model_type: 'base', model_param: 'octaves', thumb_label: true },
-        { type: 'slider', label: 'persistence', min: 0, max: 0.9, step: 0.05, model_type: 'base', model_param: 'persistence', thumb_label: true },
-        { type: 'slider', label: 'redistribution', min: 0, max: 7, step: 0.1, model_type: 'base', model_param: 'redistribution', thumb_label: true },
-        { type: 'slider', label: 'scale', min: 0, max: 2, step: 0.1, model_type: 'base', model_param: 'scale', thumb_label: true },
+        { type: 'slider', label: 'octaves', min: 0, max: 10, step: 1, model_type: 'base', model_param: 'octaves' },
+        { type: 'slider', label: 'persistence', min: 0, max: 0.9, step: 0.05, model_type: 'base', model_param: 'persistence' },
+        { type: 'slider', label: 'redistribution', min: 0, max: 7, step: 0.1, model_type: 'base', model_param: 'redistribution' },
+        { type: 'slider', label: 'scale', min: 0, max: 2, step: 0.1, model_type: 'base', model_param: 'scale' },
       ],
       params: {
         size: {
