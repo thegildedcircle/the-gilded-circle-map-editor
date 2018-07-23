@@ -100,17 +100,29 @@ export default {
           height: 20
         },
         base: {
-          a: 0.05,
-          b: 1.5,
-          c: 25,
-          lacunarity: 10,
-          manhattan: true,
-          multiply: false,
-          octaves: 5,
-          persistence: 0.5,
-          redistribution: 5.5,
-          scale: 0.5
+          octaves: [
+            {
+              val: 0.8,
+              wl: 100
+            },
+            {
+              val: 0.2,
+              wl: 20
+            }
+          ]
         },
+        // base: {
+        //   a: 0.05,
+        //   b: 1.5,
+        //   c: 25,
+        //   lacunarity: 10,
+        //   manhattan: true,
+        //   multiply: false,
+        //   octaves: 5,
+        //   persistence: 0.5,
+        //   redistribution: 5.5,
+        //   scale: 0.5
+        // },
         biome: {
           moisture: {
             lacunarity: 5,
