@@ -9,9 +9,7 @@ export default class MapTile {
   }
 
   _setBaseByElevation (e = 0) {
-    const base      = e === 99
-      ? BASE_TILES.getBorder()
-      : BASE_TILES.getByElevation(e)
+    const base      = BASE_TILES.getByElevation(e)
 
     this.char       = base.char
     this.colour     = base.colour
