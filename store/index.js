@@ -1,8 +1,6 @@
 // import map generator from js assets
 import map from '~/assets/js/map'
 
-console.log(map)
-
 export const state = () => ({
   map: []
 })
