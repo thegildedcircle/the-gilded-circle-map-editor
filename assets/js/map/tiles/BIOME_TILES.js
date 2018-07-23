@@ -9,7 +9,6 @@ export default {
       : c < 0
         ? 0
         : c
-        
-    return _.find(this._TILES, (o) => o.elevation === e && o.climate.includes(c))
+    return _.find(this._TILES, (o) => { return o.elevation === e && _.includes(o.climate, c) })
   }
 }

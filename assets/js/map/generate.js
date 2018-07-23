@@ -5,7 +5,7 @@ import config from './generate.config';
 import noise from '../utils/noise';
 
 export const base = function (W, H = W) {
-  const MAP = [...Array(W).keys()].map(i => Array(H).fill(new MapTile(99)))
+  const MAP = [...Array(H).keys()].map(i => Array(W).fill(new MapTile(99)))
 
   const origin = {
     x: 0.5 + ((Math.random() - 0.5) / 5),
@@ -45,7 +45,7 @@ export const base = function (W, H = W) {
           ? BASE_TILES.getTotal() - 1
           : e
 
-      MAP[x][y] = new MapTile(0)
+      MAP[y][x] = new MapTile(0)
     }
   }
 
@@ -80,7 +80,7 @@ export const biome = function (MAP) {
           ? 2
           : nd
 
-      MAP[x][y].setBiome(nd)
+      MAP[y][x].setBiome(nd)
     }
   }
 
