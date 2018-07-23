@@ -1,7 +1,4 @@
 module.exports = {
-  /*
-  ** Headers of the page
-  */
   head: {
     title: 'the-gilded-circle-map-editor',
     meta: [
@@ -13,20 +10,10 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  css: [
-    '~/assets/css/main.css'
-  ],
-  /*
-  ** Customize the progress bar color
-  */
+  css: [ '~/assets/css/main.css' ],
+  modules: [ 'nuxt-buefy' ],
   loading: { color: '#3B8070' },
-  /*
-  ** Build configuration
-  */
   build: {
-    /*
-    ** Run ESLint on save
-    */
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
