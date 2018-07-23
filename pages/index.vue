@@ -39,9 +39,9 @@
                   :step="item.step"
                   />
 
-                <!-- Checkbox -->
-                <v-checkbox 
-                  v-else-if="item.type === 'checkbox'"
+                <!-- Switch -->
+                <v-switch 
+                  v-else-if="item.type === 'switch'"
                   v-model="params[item.model_type][item.model_param]"/>
               </v-list-tile-sub-title>
             </v-list-tile-content>
@@ -91,8 +91,10 @@ export default {
         { type: 'slider', label: 'b', min: 0.1, max: 5, step: 0.1, model_type: 'base', model_param: 'b' },
         { type: 'slider', label: 'c', min: 1, max: 50, step: 1, model_type: 'base', model_param: 'c' },
         { type: 'slider', label: 'lacunarity', min: 0, max: 20, step: 1, model_type: 'base', model_param: 'lacunarity' },
-        { type: 'checkbox', label: 'manhattan', model_type: 'base', model_param: 'manhattan',  },
-        { type: 'checkbox', label: 'multiply', model_type: 'base', model_param: 'multiply' },
+        { type: 'switch', label: 'manhattan', model_type: 'base', model_param: 'manhattan' },
+        { type: 'switch', label: 'euclidian', model_type: 'base', model_param: 'euclidian', },
+        { type: 'switch', label: 'multiply', model_type: 'base', model_param: 'multiply' },
+        { type: 'switch', label: 'add', model_type: 'base', model_param: 'add' },
         { type: 'slider', label: 'octaves', min: 0, max: 10, step: 1, model_type: 'base', model_param: 'octaves' },
         { type: 'slider', label: 'persistence', min: 0, max: 0.9, step: 0.05, model_type: 'base', model_param: 'persistence' },
         { type: 'slider', label: 'redistribution', min: 0, max: 7, step: 0.1, model_type: 'base', model_param: 'redistribution' },
@@ -109,7 +111,9 @@ export default {
           c: 25,
           lacunarity: 10,
           manhattan: true,
+          euclidian: false,
           multiply: false,
+          add: true,
           octaves: 5,
           persistence: 0.5,
           redistribution: 5.5,
@@ -132,7 +136,20 @@ export default {
     MapContainer
   },
   // methods
-  watch: {},
+  watch: {
+    'params.base.manhattan' (val) {
+      this.params.base.euclidian = !val
+    },
+    'params.base.euclidian' (val) {
+      this.params.base.manhattan = !val
+    },
+    'params.base.multiply' (val) {
+      this.params.base.add = !val
+    },
+    'params.base.add' (val) {
+      this.params.base.multiply = !val
+    }
+  },
   methods: {
     handler (method) { this[method]() },
     submit () { this.$store.dispatch('map/generate', { params: this.params }) }
