@@ -87,11 +87,11 @@ export default {
         { type: 'slider', label: 'b', min: 0.1, max: 5, step: 0.1, model_type: 'base', model_param: 'b', thumb_label: true },
         { type: 'slider', label: 'c', min: 1, max: 50, step: 1, model_type: 'base', model_param: 'c', thumb_label: true },
         { type: 'slider', label: 'lacunarity', min: 0, max: 20, step: 1, model_type: 'base', model_param: 'lacunarity', thumb_label: true },
-        { type: 'checkbox', label: 'manhattan', model_type: 'base', model_param: 'multiply',  },
+        { type: 'checkbox', label: 'manhattan', model_type: 'base', model_param: 'manhattan',  },
         { type: 'checkbox', label: 'multiply', model_type: 'base', model_param: 'multiply' },
         { type: 'slider', label: 'octaves', min: 0, max: 10, step: 1, model_type: 'base', model_param: 'octaves', thumb_label: true },
         { type: 'slider', label: 'persistence', min: 0, max: 0.9, step: 0.05, model_type: 'base', model_param: 'persistence', thumb_label: true },
-        { type: 'slider', label: 'redistribution', min: 0, max: 7, step: 0.1, model_type: 'base', model_param: 'redistribtion', thumb_label: true },
+        { type: 'slider', label: 'redistribution', min: 0, max: 7, step: 0.1, model_type: 'base', model_param: 'redistribution', thumb_label: true },
         { type: 'slider', label: 'scale', min: 0, max: 2, step: 0.1, model_type: 'base', model_param: 'scale', thumb_label: true },
       ],
       params: {
