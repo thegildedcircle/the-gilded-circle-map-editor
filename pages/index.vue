@@ -1,6 +1,6 @@
 <template>
   <main>
-    <v-navigation-drawer fixed clipped class="grey lighten-4" app>
+    <v-navigation-drawer value="true" stateless fixed clipped class="grey lighten-4" app>
       <v-list dense two-line class="grey lighten-4">
         <template v-for="(item, i) in menu">
           <!-- Divider -->
