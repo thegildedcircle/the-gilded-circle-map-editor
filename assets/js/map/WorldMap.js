@@ -6,8 +6,7 @@ import noise from '../utils/noise';
 export default class WorldMap extends Array {
   constructor (params) {
     super(...[...Array(params.size.height).keys()].map(i => Array(params.size.width).fill(null)))
-    Object.setPrototypeOf(this, WorldMap.prototype)
-
+    
     this._params = params
     this.generate()
   }
