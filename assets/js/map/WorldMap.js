@@ -3,7 +3,8 @@ import LinearGradient from '../utils/LinearGradient'
 
 import MapTile from './tiles';
 
-const gradient = new LinearGradient([ 0, 1, 1, 0 ])
+const TERRAIN_GRADIENT = new LinearGradient([ 0, 1, 1, 0 ])
+const CLIMATE_GRADIENT = new LinearGradient([ 0, 3, 0 ])
 
 export default class WorldMap extends Array {
   constructor (params) {
@@ -32,8 +33,8 @@ export default class WorldMap extends Array {
           const fx = width / 5
           const fy = height / 5
           // linear gradient for island generation
-          const gx = gradient.at(nx)
-          const gy = gradient.at(ny)
+          const gx = TERRAIN_GRADIENT.at(nx)
+          const gy = TERRAIN_GRADIENT.at(ny)
           const g = Math.min(gx, gy)
 
           let amplitude = 1
@@ -64,14 +65,17 @@ export default class WorldMap extends Array {
           // noise frequencies
           const fx = width / 4
           const fy = height / 4
+          // linear vertical gradient for climate generation
+          const gy = CLIMATE_GRADIENT.at(ny)
 
           // noise values range from -1 to 1
           // map them to 0 to 1
-          let c = (this._noise.noise2D(nx * fx, ny * fy) + 1) / 2
+          let climate = (this._noise.noise2D(nx * fx, ny * fy) + 1) / 2
           // map clime to 0 to 3 range and then Floor for integer conversion
-          c = ~~(c * 3)
+          climate *= gy
+          climate = ~~(climate * 3)
 
-          this[y][x].setBiome(c)
+          this[y][x].setBiome(climate)
         }
       }
     }
