@@ -5,13 +5,16 @@ import noise from '../utils/noise';
 
 export default class WorldMap extends Array {
   constructor (params) {
+    // Whenever you extend something, you need to create the thing that you're extending first, 
+    // before you create the thing that you want.
     super(...[...Array(params.size.height).keys()].map(i => Array(params.size.width).fill(null)))
-    
+
     this._params = params
-    this.generate()
+    this.regenerate(this._params)
   }
 
-  generate() {
+  // --- Private Methods
+  _generate () {
     const { height, width } = this._params.size
 
     for (let y = 0; y < height; y++) {
@@ -19,6 +22,15 @@ export default class WorldMap extends Array {
         this[y][x] = new MapTile(0)
       }
     }
+  }
+
+  // Public Methods
+  regenerate ({ base, biome }) {
+    // update this._params if any/each of the properties are supplied.
+    if (base) this._params.base = base
+    if (biome) this._params.biome = biome 
+
+    this._generate()
   }
 }
 
