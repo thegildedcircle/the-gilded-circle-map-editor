@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { MAP } from '~/assets/json/map.example.json'
 import MapTile from './Tile.vue'
 
 export default {
