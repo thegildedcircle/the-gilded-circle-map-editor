@@ -1,7 +1,9 @@
-import MapTile from './tiles';
-import BASE_TILES from './tiles/BASE_TILES';
+import OpenSimplexNoise from 'open-simplex-noise';
+import LinearGradient from '../utils/LinearGradient'
 
-import noise from '../utils/noise';
+import MapTile from './tiles';
+
+const gradient = new LinearGradient([ 0, 1, 1, 0 ])
 
 export default class WorldMap extends Array {
   constructor (params) {
@@ -10,109 +12,77 @@ export default class WorldMap extends Array {
     super(...[...Array(params.size.height).keys()].map(i => Array(params.size.width).fill(null)))
 
     this._params = params
+    this._noise = new OpenSimplexNoise(this._params.seed || Date.now())
+
     this.regenerate(this._params)
   }
 
   // --- Private Methods
-  _generate () {
+  _generate (generateBase = true, generateBiome = false) {
     const { height, width } = this._params.size
 
     for (let y = 0; y < height; y++) {
       for( let x = 0; x < width; x++) {
-        this[y][x] = new MapTile(0)
+        if (generateBase) {
+          const { base } = this._params
+          // noise indexes
+          const nx = x / width
+          const ny = y / height
+          // noise frequencies
+          const fx = width / 5
+          const fy = height / 5
+          // linear gradient for island generation
+          const gx = gradient.at(nx)
+          const gy = gradient.at(ny)
+          const g = Math.min(gx, gy)
+
+          let amplitude = 1
+          let elevation = 0
+          for (let i = 0; i < base.octaves; i++) {
+            // noise values range from -1 to 1
+            // map them to 0 to 1
+            const val = (this._noise.noise2D(nx * fx, ny * fy) + 1) / 2
+            elevation += (val * amplitude) / (1 + i)
+            amplitude *= base.persistence
+          }
+
+          // 
+          elevation *= g
+          // outter 2 tiles are always water
+          if ((x < 2 || x >= width - 2) || (y < 2 || y >= height - 2))
+            elevation *= 0
+          // map elevation to 0 to 8 range and then Floor for integer conversion
+          // ensure we don't even go over 7 somehow
+          elevation = Math.min(~~(elevation * 8), 7)
+
+          this[y][x] = new MapTile(elevation)
+        }
+        if (generateBiome) {
+          // noise indexes
+          const nx = x / width
+          const ny = y / height
+          // noise frequencies
+          const fx = width / 4
+          const fy = height / 4
+
+          // noise values range from -1 to 1
+          // map them to 0 to 1
+          let c = (this._noise.noise2D(nx * fx, ny * fy) + 1) / 2
+          // map clime to 0 to 3 range and then Floor for integer conversion
+          c = ~~(c * 3)
+
+          this[y][x].setBiome(c)
+        }
       }
     }
   }
 
-  // Public Methods
+  // --- Public Methods
   regenerate ({ base, biome }) {
     // update this._params if any/each of the properties are supplied.
     if (base) this._params.base = base
     if (biome) this._params.biome = biome 
 
-    this._generate()
+    this._generate(true, true)
   }
 }
-
-// export const base = function ({width, height}, params) {
-//   const MAP = [...Array(height).keys()].map(i => Array(width).fill(new MapTile(99)))
-
-//   const origin = {
-//     x: 0.5 + ((Math.random() - 0.5) / 5),
-//     y: 0.5 + ((Math.random() - 0.5) / 5)
-//   }
-
-//   for (let y = 2; y < height - 2; y++) {
-//     for (let x = 2; x < width - 2; x++) {
-//       const nx = ((x - 2) / (width - 2)) - origin.x
-//       const ny = ((y - 2) / (height - 2)) - origin.y
-//       const d = params.manhattan
-//         ? Math.abs(nx) + Math.abs(ny)
-//         : 2 * Math.sqrt(nx * nx + ny * ny)
-
-//       let a = 1
-//       let f = 1
-//       let e = params.multiply
-//         ? params.a * (1 - params.b * Math.pow(d, params.c))
-//         : params.a - (params.b * Math.pow(d, params.c))
-
-//       for (let o = 0; o < params.octaves; o++) {
-//         const v = noise(nx / params.scale * f, ny / params.scale * f)
-
-//         e += (v * a) / (1 + o)
-//         a *= params.persistence
-//         f *= params.lacunarity
-//       }
-
-//       e = e < 0
-//         ? 0
-//         : Math.pow(e, params.redistribution)
-//       e /= 2 + (1 - params.persistence)
-//       e = Math.floor(e * BASE_TILES.getTotal())
-//       e = e < 0
-//         ? 0
-//         : e >= BASE_TILES.getTotal()
-//           ? BASE_TILES.getTotal() - 1
-//           : e
-
-//       MAP[y][x] = new MapTile(e)
-//     }
-//   }
-
-//   return MAP
-// }
-
-// export const biome = function (MAP, params) {
-//   const origin = {
-//     x: 0.5,
-//     y: 0.5
-//   }
-
-//   for (let y = 2; y < MAP.length - 2; y++) {
-//     for (let x = 2; x < MAP[y].length - 2; x++) {
-//       const nx = (x / MAP[y].length) - origin.x
-//       const ny = (y / MAP.length) - origin.y
-
-//       let a = 1
-//       let f = 1
-//       let nd = 0
-//       for (let o = 0; o < params.moisture.octaves; o++) {
-//         const v = noise(nx / params.moisture.scale * f, ny / params.moisture.scale * f)
-
-//         nd += (v * a) / (1 + o)
-//         a *= params.moisture.persistence
-//         f *= params.moisture.lacunarity
-//       }
-//       nd = ~~((nd * 3) - origin.y)
-//       nd = nd < 0
-//         ? 0
-//         : nd >= 3
-//           ? 2
-//           : nd
-
-//       MAP[y][x].setBiome(nd)
-//     }
-//   }
-
-//   return MAP
-// }
