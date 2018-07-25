@@ -10,7 +10,7 @@ export default class WorldMap extends Array {
   constructor (params) {
     // Whenever you extend something, you need to create the thing that you're extending first, 
     // before you create the thing that you want.
-    super(...[...Array(params.size.height).keys()].map(i => Array(params.size.width).fill(null)))
+    super(...[...Array(params.size.height).keys()].map(i => Array(params.size.width).fill(new MapTile(0, 0))))
 
     this._params = params
     this._noise = new OpenSimplexNoise(this._params.seed || Date.now())
@@ -22,8 +22,8 @@ export default class WorldMap extends Array {
   _generate (generateBase = true, generateBiome = false) {
     const { height, width } = this._params.size
 
-    for (let y = 0; y < height; y++) {
-      for( let x = 0; x < width; x++) {
+    for (let y = 2; y < height - 2; y++) {
+      for( let x = 2; x < width - 2; x++) {
         if (generateBase) {
           const { base } = this._params
           // noise indexes
@@ -49,9 +49,6 @@ export default class WorldMap extends Array {
 
           // 
           elevation *= g
-          // outter 2 tiles are always water
-          if ((x < 2 || x >= width - 2) || (y < 2 || y >= height - 2))
-            elevation *= 0
           // map elevation to 0 to 8 range and then Floor for integer conversion
           // ensure we don't even go over 7 somehow
           elevation = Math.min(~~(elevation * 8), 7)
