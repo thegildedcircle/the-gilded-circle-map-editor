@@ -15,8 +15,7 @@
   "dependencies": {
     "@nuxtjs/vuetify": "^0.4.2",
     "lodash": "^4.17.10",
-    "nuxt": "^1.0.0",
-    "simplex-noise": "^2.4.0"
+    "nuxt": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
