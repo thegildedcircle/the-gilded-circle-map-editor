@@ -14,6 +14,13 @@ module.exports = {
   modules: [ '@nuxtjs/vuetify' ],
   loading: { color: '#3B8070' },
   build: {
+    babel: {
+      plugins: [
+        ['babel-plugin-transform-builtin-extend', {
+            globals: ['Error', 'Array']
+        }]
+      ]
+    },
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
