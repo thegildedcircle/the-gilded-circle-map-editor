@@ -68,7 +68,10 @@ export default {
   watch: {
   },
   methods: {
-    update (key, val) { this.params[key] = val },
+    update (key, val) { 
+      this.params[key] = val
+      this.submit()
+    },
     submit () { this.$store.dispatch('map/setParams', this.params) }
   },
   // component Lifecycle hooks
