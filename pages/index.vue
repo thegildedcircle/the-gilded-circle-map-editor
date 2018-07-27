@@ -1,59 +1,6 @@
 <template>
   <main>
-    <v-navigation-drawer value="true" stateless fixed clipped class="grey lighten-4" app>
-      <v-list dense two-line class="grey lighten-4">
-        <template v-for="(item, i) in menu">
-          <!-- Divider -->
-          <v-divider v-if="item.type === 'divider'" :key="i" dark class="my-3"/>
-
-          <!-- Heading -->
-          <v-layout v-else-if="item.type === 'heading'" :key="i" row align-center >
-            <v-flex xs6>
-              <v-subheader>
-                {{ item.text }}
-              </v-subheader>
-            </v-flex>
-          </v-layout>
-
-          <v-list-tile v-else :key="i">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.label }}</v-list-tile-title>
-              <v-list-tile-sub-title>
-                <!-- Button -->
-                <v-btn 
-                  v-if="item.type === 'btn'"
-                  @click.native="handler(item.method)"
-                  :block="item.block"
-                  :flat="item.round" 
-                  :dark="item.dark" 
-                  :color="item.colour"
-                >{{ item.text }}</v-btn>
-
-                <!-- Slider -->
-                <v-slider 
-                  v-else-if="item.type === 'slider'"
-                  class="mx-3"
-                  v-model="params[item.model_type][item.model_param]"
-                  :min="item.min" 
-                  :max="item.max" 
-                  :step="item.step"
-                  />
-
-                <!-- Switch -->
-                <v-switch 
-                  v-else-if="item.type === 'switch'"
-                  v-model="params[item.model_type][item.model_param]"/>
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-
-            <v-list-tile-avatar v-if="item.type === 'slider'">
-              {{ params[item.model_type][item.model_param] }}
-            </v-list-tile-avatar>
-          </v-list-tile>
-
-        </template>
-      </v-list>
-    </v-navigation-drawer>
+    <sidebar-container/>
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
@@ -66,6 +13,7 @@
 
 <script>
 import MapContainer from '~/components/Map/Container'
+import SidebarContainer from '~/components/Sidebar/Container'
 
 export default {
   // Do not forget this little guy
@@ -133,7 +81,8 @@ export default {
   computed: {},
   // when component uses other components
   components: {
-    MapContainer
+    MapContainer,
+    SidebarContainer
   },
   // methods
   watch: {

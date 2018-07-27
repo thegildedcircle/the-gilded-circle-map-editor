@@ -1,1 +1,1 @@
-export default str => str.split('').reduce((acc, cur) => acc + cur.charCodeAt(0))
+export default str => str.split('').reduce((acc, cur) => acc + cur.charCodeAt(0), 0)

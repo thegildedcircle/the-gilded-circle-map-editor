@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    map () { return this.$store.state.map }
+    map () { return this.$store.state.map.tiles }
   },
   // when component uses other components
   components: {
