@@ -1,8 +1,11 @@
 <template>
   <v-navigation-drawer value="true" stateless fixed clipped class="grey lighten-4" app>
+    <v-dialog v-model="dialog" max-width="400">
+      <sidebar-dialog @close="dialog = false"/>
+    </v-dialog>
     <v-list dense two-line class="grey lighten-4">
       <div class="mx-3">
-        <v-btn @click.native="save" block round color="primary">export</v-btn>
+        <v-btn @click.stop="dialog = true" block round color="primary">export</v-btn>
       </div>
       <div class="mx-3">
         <v-btn @click.native="submit" block flat round color="primary">generate</v-btn>
@@ -17,8 +20,7 @@
 </template>
 
 <script>
-import { saveAs } from 'file-saver/FileSaver'
-
+import SidebarDialog from './Dialog'
 import SidebarGroup from './Group'
 
 export default {
@@ -61,12 +63,14 @@ export default {
           persistence: 0
         },
         climate: null
-      }
+      },
+      dialog: null
     }
   },
   computed: {},
   // when component uses other components
   components: {
+    SidebarDialog,
     SidebarGroup
   },
   // methods
@@ -77,12 +81,7 @@ export default {
       this.params[key] = val
       this.submit()
     },
-    submit () { this.$store.dispatch('map/setParams', this.params) },
-    save () {
-      const blob = new Blob([ JSON.stringify(this.$store.getters.worldMap) ], { type: 'text/plain' })
-
-      saveAs(blob, "worldmap.json")
-     }
+    submit () { this.$store.dispatch('map/setParams', this.params) }
   },
   // component Lifecycle hooks
   beforeCreate () {},
