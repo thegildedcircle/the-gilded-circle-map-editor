@@ -10,6 +10,20 @@
       <div class="mx-3">
         <v-btn @click.native="submit" block flat round color="primary">generate</v-btn>
       </div>
+      <v-divider/>
+      <v-list-tile>
+        <v-list-tile-content>
+          <v-list-tile-title>
+            <v-checkbox color="primary" label="dynamic generation" v-model="dynamic"/>
+          </v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-action>
+          <v-tooltip bottom>
+            <v-icon slot="activator">help</v-icon>
+            <span>When on, the map will regenerate whenever the parameters are changed.</span>
+          </v-tooltip>
+        </v-list-tile-action>
+      </v-list-tile>
 
       <template v-for="(item, i) in items">
         <v-divider v-if="item.type === 'divider'" :key="i" dark class="my3"/>
@@ -64,7 +78,8 @@ export default {
         },
         climate: null
       },
-      dialog: null
+      dialog: null,
+      dynamic: true
     }
   },
   computed: {},
@@ -79,7 +94,9 @@ export default {
   methods: {
     update (key, val) { 
       this.params[key] = val
-      this.submit()
+
+      if (this.dynamic)
+        this.submit()
     },
     submit () { this.$store.dispatch('map/setParams', this.params) }
   },
