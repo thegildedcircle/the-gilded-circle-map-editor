@@ -2,7 +2,10 @@
   <v-navigation-drawer value="true" stateless fixed clipped class="grey lighten-4" app>
     <v-list dense two-line class="grey lighten-4">
       <div class="mx-3">
-        <v-btn @click.native="submit" block round color="primary">generate</v-btn>
+        <v-btn @click.native="save" block round color="primary">export</v-btn>
+      </div>
+      <div class="mx-3">
+        <v-btn @click.native="submit" block flat round color="primary">generate</v-btn>
       </div>
 
       <template v-for="(item, i) in items">
@@ -14,6 +17,8 @@
 </template>
 
 <script>
+import { saveAs } from 'file-saver/FileSaver'
+
 import SidebarGroup from './Group'
 
 export default {
@@ -72,7 +77,12 @@ export default {
       this.params[key] = val
       this.submit()
     },
-    submit () { this.$store.dispatch('map/setParams', this.params) }
+    submit () { this.$store.dispatch('map/setParams', this.params) },
+    save () {
+      const blob = new Blob([ JSON.stringify(this.$store.getters.worldMap) ], { type: 'text/plain' })
+
+      saveAs(blob, "worldmap.json")
+     }
   },
   // component Lifecycle hooks
   beforeCreate () {},
