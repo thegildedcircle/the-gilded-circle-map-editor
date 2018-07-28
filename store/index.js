@@ -2,8 +2,11 @@
 import WorldMap from '~/assets/js/map'
 import StringToCharSum from '~/assets/js/utils/StringToCharSum'
 
+import sanitise from 'sanitize-filename'
+
 export const state = () => ({
   map: {
+    name: 'world_map',
     tiles: [],
     params: {
       config: {
@@ -22,6 +25,7 @@ export const state = () => ({
 
 export const mutations = {
   MAP_SET_TILES ({ map }) { map.tiles = WorldMap.generate(map.params) },
+  MAP_SET_NAME ({ map }, name) { map.name = name },
   MAP_SET_CONFIG ({ map }, config) { map.params.config = config },
   MAP_SET_TERRAIN ({ map }, terrain) { map.params.terrain = terrain },
   MAP_SET_CLIMATE ({ map }, climate) { map.params.climate = climate }
@@ -36,8 +40,11 @@ export const actions = {
 
     commit('MAP_SET_TILES')
   },
+  'map/setName' ({ commit }, name) {
+    commit('MAP_SET_NAME', sanitise(name))
+  }
 }
 
 export const getters = {
-  worldMap: state => state.map.tiles 
+  worldMap: state => { return { map: state.map.tiles, name: state.map.name }  }
 }
