@@ -39,5 +39,5 @@ export const actions = {
 }
 
 export const getters = {
-
+  worldMap: state => state.map.tiles 
 }
